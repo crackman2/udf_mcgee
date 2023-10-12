@@ -3,4 +3,4 @@
 
 
 ## WARNING
- This is just a demonstration. Don't do anything stupid. The files remain intact, but cleaning up afterwards is a pain.
+ This is just a demonstration. The code should not be executed.
